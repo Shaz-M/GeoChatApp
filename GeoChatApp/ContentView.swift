@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var AuthViewModel : AuthViewModel
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView{
+            if AuthViewModel.signedIn{
+                ConversationListView()
+            }
+            else{
+                SignInView()
+            }
+        }
+        .onAppear{
+            AuthViewModel.signedIn = AuthViewModel.isSignedIn
+        }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

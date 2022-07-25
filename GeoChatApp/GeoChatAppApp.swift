@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct GeoChatAppApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
+            let viewModel = AuthViewModel()
             ContentView()
+                .environmentObject(viewModel)
         }
     }
 }
