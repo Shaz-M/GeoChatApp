@@ -16,6 +16,8 @@ class AuthViewModel: ObservableObject{
     
     @Published var signedIn = false
     
+
+    
     var isSignedIn: Bool{
         return auth.currentUser != nil
     }
@@ -30,19 +32,44 @@ class AuthViewModel: ObservableObject{
                 self?.signedIn = true
             }
         }
+        
+        LocationManager.shared.getUserLocation{location in
+            DatabaseManager.shared.setUserLocation(location: location)
+            DatabaseManager.shared.getNearbyUsers(location: location)
+        }
+        
+
     }
     
-    func singUp(email: String, password: String){
-        auth.createUser(withEmail: email, password: password){[weak self] result, error in
-            guard result != nil, error == nil else{
+    func singUp(email: String, password: String, username:String){
+        
+        DatabaseManager.shared.userExists(with: email, completion: {[weak self] exists in
+            guard !exists else{
+                //user already exits error
                 return
             }
-            // Sucess
-            DispatchQueue.main.async {
-                self?.signedIn = true
+            
+            Auth.auth().createUser(withEmail: email, password: password){[weak self] result, error in
+                guard result != nil, error == nil else{
+                    return
+                }
+                // Sucess
+                //insert username into database
+                DatabaseManager.shared.insertUser(with: ChatAppUser(username:username,email:email))
+                
+                DispatchQueue.main.async {
+                    self?.signedIn = true
+                }
             }
+            
+        })
+        
+        LocationManager.shared.getUserLocation{location in
+            DatabaseManager.shared.setUserLocation(location: location)
         }
+
     }
+    
     
     func signOut(){
         try? auth.signOut()

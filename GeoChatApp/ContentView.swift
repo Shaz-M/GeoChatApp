@@ -14,6 +14,11 @@ struct ContentView: View {
         NavigationView{
             if AuthViewModel.signedIn{
                 ConversationListView()
+                    .onAppear{
+                        LocationManager.shared.getUserLocation{location in
+                            DatabaseManager.shared.setUserLocation(location: location)
+                        }
+                    }
             }
             else{
                 SignInView()

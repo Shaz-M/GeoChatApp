@@ -16,6 +16,9 @@
 		7E337B8F288E3FBC0073CFA7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B8E288E3FBC0073CFA7 /* SignInView.swift */; };
 		7E337B91288E41EC0073CFA7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B90288E41EC0073CFA7 /* SignUpView.swift */; };
 		7E337B93288E490F0073CFA7 /* ConversationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B92288E490E0073CFA7 /* ConversationListView.swift */; };
+		7E337B972890966E0073CFA7 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B962890966E0073CFA7 /* DatabaseManager.swift */; };
+		7E337B9928909C3C0073CFA7 /* ChatAppUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */; };
+		7E337B9C289124270073CFA7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B9B289124260073CFA7 /* LocationManager.swift */; };
 		C874FD7F3625BEAB9387E6A5 /* Pods_GeoChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 167007D703EBDDE1AA0ED409 /* Pods_GeoChatApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +35,10 @@
 		7E337B8E288E3FBC0073CFA7 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7E337B90288E41EC0073CFA7 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		7E337B92288E490E0073CFA7 /* ConversationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListView.swift; sourceTree = "<group>"; };
+		7E337B962890966E0073CFA7 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUserModel.swift; sourceTree = "<group>"; };
+		7E337B9A2890FB320073CFA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7E337B9B289124260073CFA7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8D0D1A89C691895402ADC415 /* Pods-GeoChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChatApp.release.xcconfig"; path = "Target Support Files/Pods-GeoChatApp/Pods-GeoChatApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +83,7 @@
 		7E337B78288E178D0073CFA7 /* GeoChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				7E337B9A2890FB320073CFA7 /* Info.plist */,
 				7E337B79288E178D0073CFA7 /* GeoChatAppApp.swift */,
 				7E337B7B288E178D0073CFA7 /* ContentView.swift */,
 				7E337B8A288E2A6F0073CFA7 /* GoogleService-Info.plist */,
@@ -99,6 +107,7 @@
 		7E337B87288E1F860073CFA7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				7E337B8C288E35D00073CFA7 /* AuthViewModel.swift */,
+				7E337B962890966E0073CFA7 /* DatabaseManager.swift */,
+				7E337B9B289124260073CFA7 /* LocationManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -247,10 +258,13 @@
 			files = (
 				7E337B7C288E178D0073CFA7 /* ContentView.swift in Sources */,
 				7E337B91288E41EC0073CFA7 /* SignUpView.swift in Sources */,
+				7E337B9928909C3C0073CFA7 /* ChatAppUserModel.swift in Sources */,
 				7E337B7A288E178D0073CFA7 /* GeoChatAppApp.swift in Sources */,
 				7E337B8F288E3FBC0073CFA7 /* SignInView.swift in Sources */,
 				7E337B8D288E35D00073CFA7 /* AuthViewModel.swift in Sources */,
 				7E337B93288E490F0073CFA7 /* ConversationListView.swift in Sources */,
+				7E337B972890966E0073CFA7 /* DatabaseManager.swift in Sources */,
+				7E337B9C289124270073CFA7 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +399,8 @@
 				DEVELOPMENT_TEAM = 95M27PV48J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoChatApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To query nearby users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,6 +431,8 @@
 				DEVELOPMENT_TEAM = 95M27PV48J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoChatApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To query nearby users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
