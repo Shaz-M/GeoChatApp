@@ -9,19 +9,32 @@ import SwiftUI
 
 struct ConversationListView: View {
     @EnvironmentObject var AuthViewModel : AuthViewModel
+    @ObservedObject var ConversationViewModel = ConversationListViewModel()
     
+    init(){
+        ConversationViewModel.getUsernames()
+    }
+
     var body: some View {
         VStack{
-            Text("You are now signed in")
-            
-            Button(action: {
-                    AuthViewModel.signOut()
-            } , label:{
-                    Text("Sign Out")
-                    .frame(width: 200, height: 50)
-                    .background(Color.black)
-                    .foregroundColor(Color.blue)
-            })
+            NavigationView{
+                List(ConversationViewModel.nearbyUsers){ user in
+                    HStack{
+                        Text(user.username)
+                        Spacer()
+                    }
+                }
+            }
+            .navigationBarTitle("Nearby Users")
+            .navigationBarItems(trailing: Button(action: {
+                AuthViewModel.signOut()
+        } , label:{
+                Text("Sign Out")
+                .frame(width: 100, height: 50)
+                .background(Color.black)
+                .foregroundColor(Color.blue)
+        }))
+             
         }
         
     }

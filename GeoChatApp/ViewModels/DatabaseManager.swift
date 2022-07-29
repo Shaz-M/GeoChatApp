@@ -38,6 +38,28 @@ extension DatabaseManager{
     public func insertUser(with user: ChatAppUser){
         database.child("Users").child(user.safeEmail).setValue(["username":user.username])
     }
+    
+    ///insert email to database
+    public func insertEmail(uid: String,email:String){
+        database.child("Emails").child(uid).setValue(["email":email])
+    }
+    
+    public func getUsername(uid: String, completion: @escaping ((String)->Void)){
+        database.child("Emails").child(uid).child("email").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+            guard let email = snapshot.value as? String else{
+                return
+            }
+            let safeEmail = email.replacingOccurrences(of: ".", with: "-")
+            self?.database.child("Users").child(safeEmail).child("username").observeSingleEvent(of: .value, with: {snapshot in
+                
+                guard let username = snapshot.value as? String else{return}
+                
+                completion(username)
+            })
+            
+        })
+    }
+    
 }
 
 
@@ -49,6 +71,7 @@ struct FndDatabase{
 
 extension DatabaseManager {
     public func setUserLocation(location: CLLocation){
+        print("IN SET USER LOCATION")
         Auth.auth().addStateDidChangeListener { auth, user in
             if let uid = user{
                 FndDatabase.GEO_REF.setLocation(location, forKey: uid.uid)
@@ -56,12 +79,14 @@ extension DatabaseManager {
         }
     }
     
-    public func getNearbyUsers(location: CLLocation){
-        let circleQuery = FndDatabase.GEO_REF.query(at: location, withRadius: 10)
+    public func getNearbyUsers(location: CLLocation,completion: @escaping ([String]) -> Void) {
+        let circleQuery = FndDatabase.GEO_REF.query(at: location, withRadius: 1.6)
         var users = [String]()
         circleQuery.observe(.keyEntered, with: { (key: String!, location: CLLocation!) in
             users.append(key)
         })
-        print(users)
+        circleQuery.observeReady {
+            completion(users)
+        }
     }
 }

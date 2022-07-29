@@ -26,7 +26,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         guard let location = locations.first else{
             return
         }
-        
         completion?(location)
         manager.stopUpdatingLocation()
     }

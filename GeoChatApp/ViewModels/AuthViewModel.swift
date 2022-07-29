@@ -35,7 +35,6 @@ class AuthViewModel: ObservableObject{
         
         LocationManager.shared.getUserLocation{location in
             DatabaseManager.shared.setUserLocation(location: location)
-            DatabaseManager.shared.getNearbyUsers(location: location)
         }
         
 
@@ -56,6 +55,7 @@ class AuthViewModel: ObservableObject{
                 // Sucess
                 //insert username into database
                 DatabaseManager.shared.insertUser(with: ChatAppUser(username:username,email:email))
+                DatabaseManager.shared.insertEmail(uid: (result?.user.uid)!, email: email)
                 
                 DispatchQueue.main.async {
                     self?.signedIn = true
@@ -64,9 +64,12 @@ class AuthViewModel: ObservableObject{
             
         })
         
+        
+        
         LocationManager.shared.getUserLocation{location in
             DatabaseManager.shared.setUserLocation(location: location)
         }
+    
 
     }
     
