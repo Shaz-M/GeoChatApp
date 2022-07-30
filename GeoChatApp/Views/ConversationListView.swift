@@ -16,26 +16,34 @@ struct ConversationListView: View {
     }
 
     var body: some View {
-        VStack{
             NavigationView{
                 List(ConversationViewModel.nearbyUsers){ user in
-                    HStack{
-                        Text(user.username)
-                        Spacer()
+                    NavigationLink(destination: ChatView(vm: ChatViewModel(sender:AuthViewModel.uid, receiver: user.uid))){
+                        HStack{
+                            Text(user.username)
+                            Spacer()
+                        }
                     }
+                    .navigationBarItems(
+                        leading: Text("Nearby Users")
+                            .fontWeight(.bold)
+                            .font(.largeTitle),
+                        trailing: Button(action: {
+                        AuthViewModel.signOut()
+                } , label:{
+                        Text("Sign Out")
+                        .frame(width: 50, height: 50)
+                        .background(Color.black)
+                        .foregroundColor(Color.blue)
+                }))
+    
                 }
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
             }
-            .navigationBarTitle("Nearby Users")
-            .navigationBarItems(trailing: Button(action: {
-                AuthViewModel.signOut()
-        } , label:{
-                Text("Sign Out")
-                .frame(width: 100, height: 50)
-                .background(Color.black)
-                .foregroundColor(Color.blue)
-        }))
+            .padding(.top,30)
+
              
-        }
         
     }
 }

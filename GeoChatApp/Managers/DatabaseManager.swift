@@ -90,3 +90,26 @@ extension DatabaseManager {
         }
     }
 }
+
+
+
+// Mark: - Chat id creation or retrival
+
+extension DatabaseManager{
+    public func getChatID(sender: String, recevier: String, completion: @escaping ((String) -> Void)){
+        let chats = database.child("ChatIDs")
+        chats.child("\(sender)-\(recevier)").observeSingleEvent(of: .value, with: { snapshot in
+            guard let chatID = snapshot.value as? String else{
+                let newChatID = UUID().uuidString
+                chats.child("\(sender)-\(recevier)").setValue(newChatID)
+                chats.child("\(recevier)-\(sender)").setValue(newChatID)
+                print("MADE NEW CHAT")
+                completion(newChatID)
+                return
+            }
+            print("FOUND CHAT")
+            completion(chatID)
+            
+        })
+    }
+}

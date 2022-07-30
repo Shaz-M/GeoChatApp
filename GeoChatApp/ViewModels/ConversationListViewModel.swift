@@ -12,6 +12,7 @@ import FirebaseAuth
 
 struct Chatroom: Identifiable {
     var id = UUID()
+    var uid : String
     var username: String
 }
 
@@ -40,7 +41,7 @@ class ConversationListViewModel: ObservableObject {
                     for uid in array{
                         if uid == currentUserUid{continue}
                         DatabaseManager.shared.getUsername(uid: uid){ value in
-                            self.nearbyUsers.append(Chatroom(username: value))
+                            self.nearbyUsers.append(Chatroom(uid:uid,username: value))
                         }
                     }
                     

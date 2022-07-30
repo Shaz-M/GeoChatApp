@@ -19,6 +19,10 @@
 		7E337B972890966E0073CFA7 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B962890966E0073CFA7 /* DatabaseManager.swift */; };
 		7E337B9928909C3C0073CFA7 /* ChatAppUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */; };
 		7E337B9C289124270073CFA7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E337B9B289124260073CFA7 /* LocationManager.swift */; };
+		7E94AD65289524B100AD4FAE /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E94AD64289524B100AD4FAE /* ChatView.swift */; };
+		7E94AD682895468800AD4FAE /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E94AD672895468800AD4FAE /* ChatViewModel.swift */; };
+		7E94AD6A2895482900AD4FAE /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E94AD692895482900AD4FAE /* MessageModel.swift */; };
+		7E94AD6E2895541000AD4FAE /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E94AD6D2895541000AD4FAE /* MessageView.swift */; };
 		7EA633D12893689A00061DD1 /* ConversationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA633D02893689A00061DD1 /* ConversationListViewModel.swift */; };
 		C874FD7F3625BEAB9387E6A5 /* Pods_GeoChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 167007D703EBDDE1AA0ED409 /* Pods_GeoChatApp.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +44,10 @@
 		7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUserModel.swift; sourceTree = "<group>"; };
 		7E337B9A2890FB320073CFA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7E337B9B289124260073CFA7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		7E94AD64289524B100AD4FAE /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		7E94AD672895468800AD4FAE /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		7E94AD692895482900AD4FAE /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		7E94AD6D2895541000AD4FAE /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		7EA633D02893689A00061DD1 /* ConversationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewModel.swift; sourceTree = "<group>"; };
 		8D0D1A89C691895402ADC415 /* Pods-GeoChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoChatApp.release.xcconfig"; path = "Target Support Files/Pods-GeoChatApp/Pods-GeoChatApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +100,7 @@
 				7E337B7D288E17930073CFA7 /* Assets.xcassets */,
 				7E337B87288E1F860073CFA7 /* Models */,
 				7E337B88288E1F9D0073CFA7 /* Views */,
+				7E94AD6628952BE000AD4FAE /* Managers */,
 				7E337B89288E1FC20073CFA7 /* ViewModels */,
 				7E337B7F288E17930073CFA7 /* Preview Content */,
 			);
@@ -110,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				7E337B9828909C3C0073CFA7 /* ChatAppUserModel.swift */,
+				7E94AD692895482900AD4FAE /* MessageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -120,6 +130,8 @@
 				7E337B8E288E3FBC0073CFA7 /* SignInView.swift */,
 				7E337B90288E41EC0073CFA7 /* SignUpView.swift */,
 				7E337B92288E490E0073CFA7 /* ConversationListView.swift */,
+				7E94AD64289524B100AD4FAE /* ChatView.swift */,
+				7E94AD6D2895541000AD4FAE /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,11 +140,19 @@
 			isa = PBXGroup;
 			children = (
 				7E337B8C288E35D00073CFA7 /* AuthViewModel.swift */,
-				7E337B962890966E0073CFA7 /* DatabaseManager.swift */,
-				7E337B9B289124260073CFA7 /* LocationManager.swift */,
 				7EA633D02893689A00061DD1 /* ConversationListViewModel.swift */,
+				7E94AD672895468800AD4FAE /* ChatViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7E94AD6628952BE000AD4FAE /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				7E337B962890966E0073CFA7 /* DatabaseManager.swift */,
+				7E337B9B289124260073CFA7 /* LocationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		DE241BEF5149892BDBD95E12 /* Pods */ = {
@@ -263,11 +283,15 @@
 				7E337B91288E41EC0073CFA7 /* SignUpView.swift in Sources */,
 				7E337B9928909C3C0073CFA7 /* ChatAppUserModel.swift in Sources */,
 				7E337B7A288E178D0073CFA7 /* GeoChatAppApp.swift in Sources */,
+				7E94AD65289524B100AD4FAE /* ChatView.swift in Sources */,
 				7E337B8F288E3FBC0073CFA7 /* SignInView.swift in Sources */,
+				7E94AD6A2895482900AD4FAE /* MessageModel.swift in Sources */,
 				7EA633D12893689A00061DD1 /* ConversationListViewModel.swift in Sources */,
 				7E337B8D288E35D00073CFA7 /* AuthViewModel.swift in Sources */,
 				7E337B93288E490F0073CFA7 /* ConversationListView.swift in Sources */,
 				7E337B972890966E0073CFA7 /* DatabaseManager.swift in Sources */,
+				7E94AD682895468800AD4FAE /* ChatViewModel.swift in Sources */,
+				7E94AD6E2895541000AD4FAE /* MessageView.swift in Sources */,
 				7E337B9C289124270073CFA7 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
