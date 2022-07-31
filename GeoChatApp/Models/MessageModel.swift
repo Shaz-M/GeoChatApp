@@ -10,6 +10,7 @@ import Foundation
 
 struct Message: Codable,Hashable{
     var id = UUID().uuidString
+    var timestamp : Int64
     var text : String
     var senderUID : String
     

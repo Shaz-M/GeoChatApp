@@ -11,6 +11,8 @@ struct ChatView: View {
     
     @StateObject var vm: ChatViewModel
     @State private var text: String = ""
+    
+    let receiverUsername : String
 
 
     
@@ -52,7 +54,7 @@ struct ChatView: View {
                 }.padding(.horizontal)
                 
                 
-            }.navigationTitle(vm.receiver).navigationBarTitleDisplayMode(.inline)
+            }.navigationTitle(receiverUsername).navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 UITableView.appearance().separatorColor = .clear
             }
@@ -65,6 +67,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(vm: ChatViewModel(sender: "", receiver: ""))
+        ChatView(vm: ChatViewModel(sender: "", receiver: ""),receiverUsername: "Default User")
     }
 }

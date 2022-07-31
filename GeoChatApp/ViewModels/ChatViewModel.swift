@@ -26,27 +26,26 @@ class ChatViewModel: ObservableObject {
     }
     
     public func getMessages(){
-        database.child("ChatMessages").child(chatID).observe(.value){[weak self] snapshot in
+        database.child("ChatMessages").child(chatID).queryOrdered(byChild: "timestamp").observe(.value){[weak self] snapshot in
             if snapshot.exists() {
-                guard let data = snapshot.value as? [String: Any] else{
-                    return
-                }
-                
+                print(snapshot)
                 self?.messages.removeAll()
-                let sortedKeys = Array(data.keys).sorted(by: <)
-                sortedKeys.forEach { (key) in
-                    if let messageDict = data[key] as? NSDictionary {
-                        let newMessage = Message(text: messageDict["text"] as! String, senderUID:  messageDict["sender"] as! String)
-                        self?.messages.append(newMessage)
-                    }
+                
+                for child in snapshot.children.allObjects as! [DataSnapshot] {
+                    
+                    guard let childDict = child.value as? [String: Any] else { continue }
+                    let newMessage = Message(timestamp: childDict["timestamp"] as! Int64, text: childDict["text"] as! String, senderUID: childDict["sender"] as! String)
+                    self?.messages.append(newMessage)
+
                 }
             }
         }
+        
     }
     
     public func sendMessage(text:String){
-        let message = Message(text: text, senderUID: sender)
-        database.child("ChatMessages").child(chatID).child(message.id).setValue(["sender":message.senderUID, "text":message.text])
+        let message = Message(timestamp: Int64(Date().timeIntervalSince1970 * 1000),text: text, senderUID: sender)
+        database.child("ChatMessages").child(chatID).child(message.id).setValue(["sender":message.senderUID,"timestamp":message.timestamp, "text":message.text])
         
     }
 }

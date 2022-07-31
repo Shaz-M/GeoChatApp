@@ -19,7 +19,7 @@ struct Chatroom: Identifiable {
 class ConversationListViewModel: ObservableObject {
     
     @Published var nearbyUsers = [Chatroom]()
-
+    let currentuser = Auth.auth().currentUser?.uid ?? ""
     
     public func getUsernames(){
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }

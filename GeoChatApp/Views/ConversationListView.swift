@@ -18,7 +18,7 @@ struct ConversationListView: View {
     var body: some View {
             NavigationView{
                 List(ConversationViewModel.nearbyUsers){ user in
-                    NavigationLink(destination: ChatView(vm: ChatViewModel(sender:AuthViewModel.uid, receiver: user.uid))){
+                    NavigationLink(destination: ChatView(vm: ChatViewModel(sender:ConversationViewModel.currentuser, receiver: user.uid), receiverUsername: user.username)){
                         HStack{
                             Text(user.username)
                             Spacer()
@@ -32,7 +32,7 @@ struct ConversationListView: View {
                         AuthViewModel.signOut()
                 } , label:{
                         Text("Sign Out")
-                        .frame(width: 50, height: 50)
+                        .frame(width: 100, height: 50)
                         .background(Color.black)
                         .foregroundColor(Color.blue)
                 }))

@@ -13,11 +13,9 @@ import FirebaseAuth
 class AuthViewModel: ObservableObject{
     
     let auth = Auth.auth()
-    let uid : String
+    let uid = Auth.auth().currentUser?.uid
     
-    init(){
-        uid = auth.currentUser?.uid ?? ""
-    }
+
     
     @Published var signedIn = false
     

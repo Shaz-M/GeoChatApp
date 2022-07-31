@@ -30,7 +30,7 @@ struct MessageView: View {
                         .fontWeight(.medium)
                         .padding()
                         .foregroundColor(.white)
-                        .background(currentUser == message.senderUID ? Color.blue : Color.green)
+                        .background(currentUser == message.senderUID ? Color.blue : Color(.systemGray6))
                         .clipShape(Bubble(sender: currentUser == message.senderUID))
                     
             }
@@ -43,6 +43,6 @@ struct MessageView: View {
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView(message:Message(text: "Test message", senderUID: ""),currentUser: "")
+        MessageView(message:Message(timestamp: 0, text: "Test message",senderUID: ""),currentUser: "")
     }
 }
