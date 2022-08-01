@@ -34,7 +34,7 @@ class ChatViewModel: ObservableObject {
                 for child in snapshot.children.allObjects as! [DataSnapshot] {
                     
                     guard let childDict = child.value as? [String: Any] else { continue }
-                    let newMessage = Message(timestamp: childDict["timestamp"] as! Int64, text: childDict["text"] as! String, senderUID: childDict["sender"] as! String)
+                    let newMessage = Message(image_url:childDict["image_url"] as? String ?? "", timestamp: childDict["timestamp"] as! Int64, text: childDict["text"] as! String, senderUID: childDict["sender"] as! String)
                     self?.messages.append(newMessage)
 
                 }
@@ -43,9 +43,22 @@ class ChatViewModel: ObservableObject {
         
     }
     
-    public func sendMessage(text:String){
-        let message = Message(timestamp: Int64(Date().timeIntervalSince1970 * 1000),text: text, senderUID: sender)
-        database.child("ChatMessages").child(chatID).child(message.id).setValue(["sender":message.senderUID,"timestamp":message.timestamp, "text":message.text])
+    public func sendMessage(text:String,image_url:String){
+        let message = Message(image_url: image_url, timestamp: Int64(Date().timeIntervalSince1970 * 1000),text: text, senderUID: sender)
+        database.child("ChatMessages").child(chatID).child(message.id).setValue(               ["sender":message.senderUID,
+            "timestamp":message.timestamp,
+            "text":message.text,
+            "image_url":image_url])
         
+    }
+    
+    public func uploadImage(image:UIImage){
+        FirebaseStorageManager.shared.uploadImage(conversationId: chatID, image: image) { [weak self] (url) in
+            if url != nil {
+                print("Url got it!!!!!")
+                self?.sendMessage(text: "", image_url: url!.absoluteString)
+                print("Image Uploaded!")
+            }
+        }
     }
 }

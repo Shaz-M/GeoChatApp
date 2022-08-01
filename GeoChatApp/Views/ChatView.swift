@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ChatView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @StateObject var vm: ChatViewModel
     @State private var text: String = ""
     
     let receiverUsername : String
 
-
+    @State private var showImagePicker = false
+    @State private var selectedImage = UIImage()
     
     var body: some View {
             VStack {
@@ -35,6 +37,12 @@ struct ChatView: View {
                 }
                 
                 HStack {
+                    Button {
+                        self.showImagePicker.toggle()
+                    } label: {
+                        Image(systemName: "photo.on.rectangle")
+                            .font(.system(size: 30))
+                    }
                     
                     TextField("Type your message!", text: $text)
                         .padding()
@@ -44,7 +52,7 @@ struct ChatView: View {
                         .overlay(RoundedRectangle(cornerRadius: 30).strokeBorder(Color.gray.opacity(0.5), lineWidth: 1))
                     
                     Button {
-                        self.vm.sendMessage(text: text)
+                        self.vm.sendMessage(text: text,image_url: "")
                         text = ""
                     } label: {
                         Image(systemName: "arrow.forward.circle.fill")
@@ -54,7 +62,12 @@ struct ChatView: View {
                 }.padding(.horizontal)
                 
                 
-            }.navigationTitle(receiverUsername).navigationBarTitleDisplayMode(.inline)
+            }.sheet(isPresented: $showImagePicker, onDismiss: {
+                vm.uploadImage(image: selectedImage)
+                
+            }, content: {
+                ImagePicker(selectedImage: $selectedImage)
+            }).navigationTitle(receiverUsername).navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 UITableView.appearance().separatorColor = .clear
             }

@@ -39,7 +39,7 @@ struct ConversationListView: View {
     
                 }
                 .navigationBarTitle("")
-                .navigationBarHidden(true)
+                .navigationBarHidden(false)
             }
             .padding(.top,30)
 
