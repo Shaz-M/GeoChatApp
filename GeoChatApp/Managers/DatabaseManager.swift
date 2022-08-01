@@ -44,6 +44,15 @@ extension DatabaseManager{
         database.child("Emails").child(uid).setValue(["email":email])
     }
     
+    /// get email given uid
+    public func getEmail(uid:String,completion: @escaping ((String)->Void)){
+        database.child("Emails").child(uid).child("email").observeSingleEvent(of: .value, with: { snapshot in
+            guard let email = snapshot.value as? String else{
+                return
+            }
+            completion(email)
+        })
+    }
     public func getUsername(uid: String, completion: @escaping ((String)->Void)){
         database.child("Emails").child(uid).child("email").observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard let email = snapshot.value as? String else{

@@ -71,6 +71,7 @@ struct ChatView: View {
             .onAppear {
                 UITableView.appearance().separatorColor = .clear
             }
+            .navigationBarHidden(false)
            
         
         

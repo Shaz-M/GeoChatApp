@@ -28,7 +28,6 @@ class ChatViewModel: ObservableObject {
     public func getMessages(){
         database.child("ChatMessages").child(chatID).queryOrdered(byChild: "timestamp").observe(.value){[weak self] snapshot in
             if snapshot.exists() {
-                print(snapshot)
                 self?.messages.removeAll()
                 
                 for child in snapshot.children.allObjects as! [DataSnapshot] {
@@ -55,9 +54,7 @@ class ChatViewModel: ObservableObject {
     public func uploadImage(image:UIImage){
         FirebaseStorageManager.shared.uploadImage(conversationId: chatID, image: image) { [weak self] (url) in
             if url != nil {
-                print("Url got it!!!!!")
                 self?.sendMessage(text: "", image_url: url!.absoluteString)
-                print("Image Uploaded!")
             }
         }
     }

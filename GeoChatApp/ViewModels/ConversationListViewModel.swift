@@ -14,6 +14,7 @@ struct Chatroom: Identifiable {
     var id = UUID()
     var uid : String
     var username: String
+    var email: String
 }
 
 class ConversationListViewModel: ObservableObject {
@@ -40,9 +41,15 @@ class ConversationListViewModel: ObservableObject {
                 DatabaseManager.shared.getNearbyUsers(location: CLLocation(latitude: latitude, longitude: longitude)){ array in
                     for uid in array{
                         if uid == currentUserUid{continue}
-                        DatabaseManager.shared.getUsername(uid: uid){ value in
-                            self.nearbyUsers.append(Chatroom(uid:uid,username: value))
+                        var email = ""
+                        DatabaseManager.shared.getEmail(uid: uid) { value in
+                            email = value
                         }
+                        
+                        DatabaseManager.shared.getUsername(uid: uid){ value in
+                                self.nearbyUsers.append(Chatroom(uid:uid,username: value, email: email))
+                            }
+
                     }
                     
                 }
@@ -50,6 +57,6 @@ class ConversationListViewModel: ObservableObject {
 
             
         })
-
+        print(nearbyUsers)
     }
 }
